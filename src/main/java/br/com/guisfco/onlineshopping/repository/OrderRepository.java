@@ -11,4 +11,6 @@ public interface OrderRepository extends org.springframework.data.repository.Rep
     List<Order> findAll();
 
     Order save(Order order);
+
+    void deleteAll();
 }

@@ -15,4 +15,6 @@ public interface CustomerRepository extends org.springframework.data.repository.
     void deleteById(Long id);
 
     Customer save(Customer customer);
+
+    void deleteAll();
 }

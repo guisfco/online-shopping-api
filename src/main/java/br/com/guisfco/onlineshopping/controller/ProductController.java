@@ -9,6 +9,7 @@ import br.com.guisfco.onlineshopping.service.product.SaveProductService;
 import br.com.guisfco.onlineshopping.service.product.UpdateProductService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,7 @@ public class ProductController {
         return ResponseEntity.ok(findAllProductsService.findAll());
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation("Adiciona um produto")
     @PostMapping("/product")
     private ResponseEntity<Product> save(@RequestBody final ProductRequest request) {

@@ -9,6 +9,7 @@ import br.com.guisfco.onlineshopping.service.customer.SaveCustomerService;
 import br.com.guisfco.onlineshopping.service.customer.UpdateCustomerService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,7 @@ public class CustomerController {
         return ResponseEntity.ok(findAllCustomersService.findAll());
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation("Adiciona um consumidor")
     @PostMapping("/customer")
     private ResponseEntity<Customer> save(@RequestBody final CustomerRequest request) {

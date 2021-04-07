@@ -20,4 +20,6 @@ public interface ProductRepository extends org.springframework.data.repository.R
     void deleteById(Long id);
 
     Product save(Product product);
+
+    void deleteAll();
 }
