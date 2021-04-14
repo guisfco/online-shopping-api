@@ -55,6 +55,10 @@ public class CleanDatabaseJob {
 
         insertCustomerMockData();
         insertProductMockData();
+    }
+
+    @Scheduled(fixedDelay = 10802000)
+    public void executeOrderMockData() {
         insertOrderMockData();
     }
 
