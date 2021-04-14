@@ -1,7 +1,8 @@
 package br.com.guisfco.onlineshopping.job;
 
+import br.com.guisfco.onlineshopping.domain.OrderProduct;
+import br.com.guisfco.onlineshopping.domain.OrderRequest;
 import br.com.guisfco.onlineshopping.entity.Customer;
-import br.com.guisfco.onlineshopping.entity.Order;
 import br.com.guisfco.onlineshopping.entity.Product;
 import br.com.guisfco.onlineshopping.fixture.CustomerRequestFixture;
 import br.com.guisfco.onlineshopping.fixture.ProductRequestFixture;
@@ -9,6 +10,7 @@ import br.com.guisfco.onlineshopping.repository.CustomerRepository;
 import br.com.guisfco.onlineshopping.repository.OrderRepository;
 import br.com.guisfco.onlineshopping.repository.ProductRepository;
 import br.com.guisfco.onlineshopping.service.customer.SaveCustomerService;
+import br.com.guisfco.onlineshopping.service.order.SaveOrderService;
 import br.com.guisfco.onlineshopping.service.product.SaveProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,8 @@ public class CleanDatabaseJob {
     private final SaveCustomerService saveCustomerService;
 
     private final SaveProductService saveProductService;
+
+    private final SaveOrderService saveOrderService;
 
     /**
      * Executa a limpeza dos registros da base de dados a cada 3 horas
@@ -67,15 +71,12 @@ public class CleanDatabaseJob {
 
         for (int i = 0; i < nextInt(1, 6); i++) {
 
-            final Customer customer = customers.get(nextInt(0, customers.size()));
-            final Product product = products.get(nextInt(0, products.size()));
+            final Long customerId = customers.get(nextInt(0, customers.size())).getId();
+            final Long productId = products.get(nextInt(0, products.size())).getId();
 
-            final Order order = Order.builder()
-                    .customer(customer)
-                    .products(Collections.singletonList(product))
-                    .build();
+            final OrderRequest orderRequest = new OrderRequest(customerId, Collections.singletonList(new OrderProduct(productId, 1)));
 
-            orderRepository.save(order);
+            saveOrderService.save(orderRequest);
         }
     }
 }
