@@ -37,10 +37,10 @@ public class ProductRequestFixture {
     public ProductRequestFixture random() {
 
         fixture.setDescription("Sed hendrerit in est in sagittis. Integer dignissim quam nisi, id dignissim elit aliquet nec. Proin ut laoreet enim. Praesent dictum metus ac faucibus dictum. Curabitur luctus, mauris id fermentum feugiat, dolor ex fermentum lectus, non feugiat justo justo et tortor. Morbi pellentesque a nunc at venenatis. Sed tempus eu erat et pulvinar. Nam vel viverra turpis.");
-        fixture.setName(names.get(nextInt(0, names.size())));
+        fixture.setName(names.get(0));
         fixture.setEnabled(true);
         fixture.setImageUrl("");
-        fixture.setPrice(BigDecimal.valueOf(nextDouble(10, 2000)));
+        fixture.setPrice(new BigDecimal(200));
         fixture.setStockLevel(999);
 
         return this;
