@@ -53,18 +53,26 @@ public class CleanDatabaseJob {
         customerRepository.deleteAll();
         productRepository.deleteAll();
 
-        insertMockData();
+        insertCustomerMockData();
+        insertProductMockData();
+        insertOrderMockData();
     }
 
-    private void insertMockData() {
+    private void insertCustomerMockData() {
 
         for (int i = 0; i < nextInt(1, 6); i++) {
             saveCustomerService.save(CustomerRequestFixture.get().random().build());
         }
+    }
+
+    private void insertProductMockData() {
 
         for (int i = 0; i < nextInt(1, 6); i++) {
             saveProductService.save(ProductRequestFixture.get().random().build());
         }
+    }
+
+    private void insertOrderMockData() {
 
         final List<Customer> customers = customerRepository.findAll();
         final List<Product> products = productRepository.findAll();
@@ -74,7 +82,7 @@ public class CleanDatabaseJob {
             final Long customerId = customers.get(nextInt(0, customers.size())).getId();
             final Long productId = products.get(nextInt(0, products.size())).getId();
 
-            final OrderRequest orderRequest = new OrderRequest(customerId, Collections.singletonList(new OrderProduct(productId, 1)));
+            final OrderRequest orderRequest = new OrderRequest(customerId, Collections.singletonList(new OrderProduct(productId, nextInt(1, 6))));
 
             saveOrderService.save(orderRequest);
         }

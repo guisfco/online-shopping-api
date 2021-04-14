@@ -23,6 +23,6 @@ public class SaveProductService {
                 .stockLevel(request.getStockLevel())
                 .build();
 
-        return repository.save(product);
+        return repository.saveAndFlush(product);
     }
 }

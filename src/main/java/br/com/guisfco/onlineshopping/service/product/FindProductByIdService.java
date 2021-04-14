@@ -6,8 +6,6 @@ import br.com.guisfco.onlineshopping.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static java.util.Optional.ofNullable;
-
 @Service
 @RequiredArgsConstructor
 public class FindProductByIdService {
@@ -15,6 +13,6 @@ public class FindProductByIdService {
     private final ProductRepository repository;
 
     public Product findById(final Long id) {
-        return ofNullable(repository.findById(id)).orElseThrow(ProductNotFoundException::new);
+        return repository.findById(id).orElseThrow(ProductNotFoundException::new);
     }
 }

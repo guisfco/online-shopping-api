@@ -21,6 +21,6 @@ public class SaveCustomerService {
                 .phoneNumber(request.getPhoneNumber())
                 .build();
 
-        return repository.save(customer);
+        return repository.saveAndFlush(customer);
     }
 }
