@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.List;
 
 import static br.com.guisfco.onlineshopping.util.RandomUtils.nextInt;
 
@@ -48,23 +49,33 @@ public class CleanDatabaseJob {
         customerRepository.deleteAll();
         productRepository.deleteAll();
 
-        Customer customer = new Customer();
+        insertMockData();
+    }
+
+    private void insertMockData() {
 
         for (int i = 0; i < nextInt(1, 6); i++) {
-            customer = saveCustomerService.save(CustomerRequestFixture.get().random().build());
+            saveCustomerService.save(CustomerRequestFixture.get().random().build());
         }
-
-        Product product = new Product();
 
         for (int i = 0; i < nextInt(1, 6); i++) {
-            product = saveProductService.save(ProductRequestFixture.get().random().build());
+            saveProductService.save(ProductRequestFixture.get().random().build());
         }
 
-        final Order order = Order.builder()
-                .customer(customer)
-                .products(Collections.singletonList(product))
-                .build();
+        final List<Customer> customers = customerRepository.findAll();
+        final List<Product> products = productRepository.findAll();
 
-        orderRepository.save(order);
+        for (int i = 0; i < nextInt(1, 6); i++) {
+
+            final Customer customer = customers.get(nextInt(0, customers.size()));
+            final Product product = products.get(nextInt(0, products.size()));
+
+            final Order order = Order.builder()
+                    .customer(customer)
+                    .products(Collections.singletonList(product))
+                    .build();
+
+            orderRepository.save(order);
+        }
     }
 }
