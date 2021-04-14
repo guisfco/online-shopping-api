@@ -69,7 +69,7 @@ public class SaveOrderService {
                 .products(orderProducts)
                 .build();
 
-        final Order savedOrder = repository.save(order);
+        final Order savedOrder = repository.saveAndFlush(order);
 
         return OrderResponseMapper.apply(savedOrder);
     }
