@@ -1,6 +1,5 @@
 package br.com.guisfco.onlineshopping.controller;
 
-import br.com.guisfco.onlineshopping.domain.ProductListResponse;
 import br.com.guisfco.onlineshopping.domain.ProductRequest;
 import br.com.guisfco.onlineshopping.entity.Product;
 import br.com.guisfco.onlineshopping.service.product.DeleteProductService;
@@ -12,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class ProductController {
 
     @ApiOperation("Consulta todos os produtos")
     @GetMapping("/product")
-    private ResponseEntity<ProductListResponse> get() {
+    private ResponseEntity<List<Product>> get() {
         return ResponseEntity.ok(findAllProductsService.findAll());
     }
 

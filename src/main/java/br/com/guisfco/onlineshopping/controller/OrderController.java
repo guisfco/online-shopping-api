@@ -1,6 +1,5 @@
 package br.com.guisfco.onlineshopping.controller;
 
-import br.com.guisfco.onlineshopping.domain.OrderListResponse;
 import br.com.guisfco.onlineshopping.domain.OrderRequest;
 import br.com.guisfco.onlineshopping.domain.OrderResponse;
 import br.com.guisfco.onlineshopping.service.order.FindAllOrdersService;
@@ -10,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +22,7 @@ public class OrderController {
 
     @ApiOperation("Consulta todos os pedidos")
     @GetMapping("/order")
-    public ResponseEntity<OrderListResponse> findAll() {
+    public ResponseEntity<List<OrderResponse>> findAll() {
         return ResponseEntity.ok(findAllOrdersService.findAll());
     }
 
